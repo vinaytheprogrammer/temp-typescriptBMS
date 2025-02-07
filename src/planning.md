@@ -20,4 +20,8 @@ Defining Book as an interface allows for the implementation of different functio
 
 
 1. BookManager Class is now fully working with SRP
-2. 
+2. make interface for Book which interface contracts can be implemented on Printed Book, E-Book, Magazine and Research Paper Class Models.
+
+and Implement genrics on BookManager Class so that this class operation can be utilised for  Printed Book, E-Book, Magazine and Research Paper Class Models 
+
+
