@@ -1,19 +1,24 @@
-import { BookAgeCalculator } from '../BookAgeCalculator.js';
-import { BookUtilities } from './BookUtilities.js';
+import { BookAgeCalculator } from "../BookAgeCalculator.js";
+import { BookUtilities } from "./BookUtilities.js";
 export class BookDOMe {
     constructor(books) {
-        var _a, _b;
+        var _a, _b, _c;
         this.books = [];
         this.originalBooks = [];
         this.booksPerPage = 5;
-        this.sortAscButton = document.getElementById('sortAsc');
-        this.sortDescButton = document.getElementById('sortDesc');
+        this.sortAscButton = document.getElementById("sortAsc");
+        this.sortDescButton = document.getElementById("sortDesc");
         this.books = books;
         this.originalBooks = [...books];
-        this.bookListDiv = document.getElementById('bookList');
-        this.bookCountDiv = document.getElementById('bookCount');
-        (_a = this.sortAscButton) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => this.sortBooks('asc'));
-        (_b = this.sortDescButton) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => this.sortBooks('desc'));
+        this.bookListDiv = document.getElementById("bookList");
+        this.bookCountDiv = document.getElementById("bookCount");
+        (_a = this.sortAscButton) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => this.sortBooks("asc"));
+        (_b = this.sortDescButton) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => this.sortBooks("desc"));
+        (_c = document.getElementById("formContainer")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", (e) => {
+            if (e.target && e.target.id === "formContainer") {
+                BookDOMe.closeForm();
+            }
+        }); // Close the form container when the user clicks outside the form
     }
     updateBookDisplay(books = this.books, currentPage = 1) {
         const totalBooks = books.length;
@@ -23,12 +28,13 @@ export class BookDOMe {
             this.bookCountDiv.textContent = `Number of books: ${totalBooks}`;
         }
         if (this.bookListDiv) {
-            this.bookListDiv.innerHTML = totalBooks === 0 ? 'No Results' : '';
+            this.bookListDiv.innerHTML = totalBooks === 0 ? "No Results" : "";
             if (totalBooks > 0) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'overflow-x-auto w-full';
-                const table = document.createElement('table');
-                table.className = 'min-w-full table-auto bg-white shadow-lg rounded-lg text-sm sm:text-base';
+                const wrapper = document.createElement("div");
+                wrapper.className = "overflow-x-auto w-full";
+                const table = document.createElement("table");
+                table.className =
+                    "min-w-full table-auto bg-white shadow-lg rounded-lg text-sm sm:text-base";
                 table.innerHTML = `
           <thead class="bg-gray-200 text-left">
             <tr class="bg-gray-300 text-xs sm:text-sm uppercase tracking-wide text-gray-700">
@@ -42,7 +48,9 @@ export class BookDOMe {
             </tr>
           </thead>
           <tbody>
-            ${books.slice(startIndex, endIndex).map(book => `
+            ${books
+                    .slice(startIndex, endIndex)
+                    .map((book) => `
               <tr class="border-t border-gray-200 hover:bg-gray-100 text-xs sm:text-sm">
                 <td class="px-1 py-1 sm:px-3 sm:py-2 font-medium text-gray-700">${book.title}</td>
                 <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${book.author}</td>
@@ -52,7 +60,8 @@ export class BookDOMe {
                 <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${BookAgeCalculator.calculateAge(book.pubDate)}</td>
                 <td class="px-1 py-1 sm:px-3 sm:py-2 text-green-600 font-semibold">${book.price}</td>
               </tr>
-            `).join('')}
+            `)
+                    .join("")}
           </tbody>
         `;
                 wrapper.appendChild(table);
@@ -64,20 +73,21 @@ export class BookDOMe {
         }
     }
     addPaginationButtons(currentPage, totalPages) {
-        const paginationDiv = document.createElement('div');
-        paginationDiv.className = 'flex justify-center mt-4 space-x-2';
+        const paginationDiv = document.createElement("div");
+        paginationDiv.className = "flex justify-center mt-4 space-x-2";
         const createButton = (label, page, disabled) => {
-            const button = document.createElement('button');
+            const button = document.createElement("button");
             button.textContent = label;
-            button.className = 'px-8 py-1 sm:px-4 sm:py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50 text-xs sm:text-sm';
+            button.className =
+                "px-8 py-1 sm:px-4 sm:py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50 text-xs sm:text-sm";
             button.disabled = disabled;
-            button.addEventListener('click', () => this.updateBookDisplay(this.books, page));
+            button.addEventListener("click", () => this.updateBookDisplay(this.books, page));
             return button;
         };
-        paginationDiv.appendChild(createButton('Previous', currentPage - 1, currentPage === 1));
-        paginationDiv.appendChild(createButton('Next', currentPage + 1, currentPage === totalPages));
+        paginationDiv.appendChild(createButton("Previous", currentPage - 1, currentPage === 1));
+        paginationDiv.appendChild(createButton("Next", currentPage + 1, currentPage === totalPages));
         if (this.bookListDiv) {
-            const existingPagination = this.bookListDiv.querySelector('.flex.justify-center');
+            const existingPagination = this.bookListDiv.querySelector(".flex.justify-center");
             if (existingPagination) {
                 existingPagination.remove();
             }
@@ -86,17 +96,21 @@ export class BookDOMe {
     }
     static closeForm() {
         var _a;
-        (_a = document.getElementById('formContainer')) === null || _a === void 0 ? void 0 : _a.classList.add('hidden'); // hide the Container
-        document.querySelectorAll('#formContainer > div').forEach(div => div.classList.add('hidden')); // hide all the forms within the container
+        (_a = document.getElementById("formContainer")) === null || _a === void 0 ? void 0 : _a.classList.add("hidden"); // hide the Container
+        document
+            .querySelectorAll("#formContainer > div")
+            .forEach((div) => div.classList.add("hidden")); // hide all the forms within the container
     }
     sortBooks(order) {
-        this.books.sort((a, b) => order === 'asc' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
+        this.books.sort((a, b) => order === "asc"
+            ? a.title.localeCompare(b.title)
+            : b.title.localeCompare(a.title));
         this.updateBookDisplay(this.books);
     }
     handleCategorize(categorizedBookListDiv) {
         this.categorizedBookListDiv = categorizedBookListDiv;
         if (!this.books || this.books.length === 0) {
-            toastr.error('No books available');
+            toastr.error("No books available");
             return;
         }
         const genres = this.books.reduce((acc, book) => {
@@ -126,15 +140,15 @@ export class BookDOMe {
                   </li>
                 `;
             })
-                .join('')}
+                .join("")}
           </ul>
           ${genres[genre].length > 5
                 ? `<p class="text-sm text-blue-600 italic mt-3">And ${genres[genre].length - 5} more...</p>`
-                : ''}
+                : ""}
         </div>
       `;
         })
-            .join('');
+            .join("");
         if (this.categorizedBookListDiv) {
             this.categorizedBookListDiv.innerHTML = `
       <h2 class="text-xl font-bold text-gray-900 mb-4">Categorized Books</h2>
@@ -145,40 +159,44 @@ export class BookDOMe {
         }
         BookDOMe.closeForm(); // Ensure this method exists and works properly
         this.scrollToBottom();
-        toastr.success('Books categorized successfully.');
+        toastr.success("Books categorized successfully.");
     }
     // Remove categorized books
     removeCategorizedBooks(categorizedBookListDiv) {
         this.categorizedBookListDiv = categorizedBookListDiv;
         if (this.categorizedBookListDiv) {
-            this.categorizedBookListDiv.innerHTML = '';
+            this.categorizedBookListDiv.innerHTML = "";
         }
         BookDOMe.closeForm(); // Ensure this method exists and works properly
         this.scrollToBottom();
-        toastr.success('Categorized books removed successfully.');
+        toastr.success("Categorized books removed successfully.");
     }
     // Scroll to bottom of the categorized book list
     scrollToBottom() {
         if (this.categorizedBookListDiv) {
-            this.categorizedBookListDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            this.categorizedBookListDiv.scrollIntoView({
+                behavior: "smooth",
+                block: "end",
+            });
         }
     }
     filterBooks() {
         var _a, _b, _c;
-        const searchTerm = (_a = document.getElementById('searchTerm')) === null || _a === void 0 ? void 0 : _a.value.trim().toLowerCase();
-        const filterGenre = (_b = document.getElementById('filterGenre')) === null || _b === void 0 ? void 0 : _b.value;
-        const filterYear = (_c = document.getElementById('filterYear')) === null || _c === void 0 ? void 0 : _c.value;
-        if (BookUtilities.validateTitle(searchTerm) === 'Special Characters not allowed')
+        const searchTerm = (_a = document.getElementById("searchTerm")) === null || _a === void 0 ? void 0 : _a.value.trim().toLowerCase();
+        const filterGenre = (_b = document.getElementById("filterGenre")) === null || _b === void 0 ? void 0 : _b.value;
+        const filterYear = (_c = document.getElementById("filterYear")) === null || _c === void 0 ? void 0 : _c.value;
+        if (BookUtilities.validateTitle(searchTerm) ===
+            "Special Characters not allowed")
             return;
         if (filterYear) {
             const currentYear = new Date().getFullYear();
             if (parseInt(filterYear, 10) > currentYear) {
-                toastr.error('Filter year cannot be greater than the current year.');
+                toastr.error("Filter year cannot be greater than the current year.");
                 return;
             }
         }
         this.books = [...this.originalBooks]; // Reset the books array to the original books fetched from the API
-        this.books = this.books.filter(book => {
+        this.books = this.books.filter((book) => {
             const matchesSearch = searchTerm
                 ? book.title.toLowerCase().includes(searchTerm) ||
                     book.author.toLowerCase().includes(searchTerm)
@@ -193,11 +211,26 @@ export class BookDOMe {
         this.updateBookDisplay(this.books);
     }
     resetFilters() {
-        document.getElementById('searchTerm').value = '';
-        document.getElementById('filterGenre').value = '';
-        document.getElementById('filterYear').value = '';
+        // Clear the filter inputs
+        document.getElementById("searchTerm").value = "";
+        document.getElementById("filterGenre").value = "";
+        document.getElementById("filterYear").value = "";
         this.books = [...this.originalBooks]; // Reset the books array to the original state
         this.updateBookDisplay(this.books);
-        toastr.success('Filters reset successfully.');
+        toastr.success("Filters reset successfully.");
+    }
+    static isbnExists(books, isbn) {
+        if (books.some((book) => book.isbn === isbn)) {
+            toastr.error("ISBN already exists.");
+            return true;
+        }
+        return false;
+    }
+    static findBookByIsbn(books, isbn) {
+        const bookIndex = books.findIndex((book) => book.isbn == isbn);
+        if (bookIndex === -1) {
+            toastr.error("Book not found.");
+        }
+        return bookIndex;
     }
 }
