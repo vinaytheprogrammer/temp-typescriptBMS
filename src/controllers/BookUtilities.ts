@@ -24,9 +24,7 @@ export class BookUtilities {
       toastr.error("isbn must be in Numbers");
       return -1;
     }
-    return isbn > 0
-      ? isbn
-      : Math.floor(Math.random() * (100000 - 1000 + 1)) + 1000;
+    return isbn > 0 ? isbn : Math.floor(Math.random() * (100000 - 1000 + 1)) + 1000;
   }
 
   static validatePrice(price: number): number | null {
@@ -44,20 +42,12 @@ export class BookUtilities {
     const pubDateObj = new Date(pubDate);
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     const currentDate = new Date().toISOString().split("T")[0];
-    if (
-      !pubDateObj ||
-      isNaN(pubDateObj.getTime()) ||
-      pubDateObj > new Date() ||
-      !regex.test(pubDate)
-    ) {
+    if (!pubDateObj || isNaN(pubDateObj.getTime()) || pubDateObj > new Date() || !regex.test(pubDate)) {
       toastr.error("Invalid publication date.");
       return "Invalid publication date";
     }
 
-    return pubDateObj &&
-      !isNaN(pubDateObj.getTime()) &&
-      pubDateObj <= new Date() &&
-      regex.test(pubDate)
+    return pubDateObj && !isNaN(pubDateObj.getTime()) && pubDateObj <= new Date() && regex.test(pubDate)
       ? pubDate
       : currentDate;
   }
@@ -96,9 +86,7 @@ export class BookUtilities {
 
   // Helper method to get input values
   public static getInputValue(id: string): string {
-    return (
-      (document.getElementById(id) as HTMLInputElement)?.value.trim() || ""
-    );
+    return (document.getElementById(id) as HTMLInputElement)?.value.trim() || "";
   }
 
   // Centralized validation logic
@@ -109,19 +97,11 @@ export class BookUtilities {
     price: number,
     pubDate: string
   ): boolean {
-    if (BookUtilities.validateTitle(title) === "Special Characters not allowed")
-      return false;
-    if (
-      BookUtilities.validateAuthor(author) === "Special Characters not allowed"
-    )
-      return false;
+    if (BookUtilities.validateTitle(title) === "Special Characters not allowed") return false;
+    if (BookUtilities.validateAuthor(author) === "Special Characters not allowed") return false;
     if (BookUtilities.validateIsbn(isbn) === -1) return false;
     if (BookUtilities.validatePrice(price) === -1) return false;
-    if (
-      BookUtilities.validatePublicationDate(pubDate) ===
-      "Invalid publication date"
-    )
-      return false;
+    if (BookUtilities.validatePublicationDate(pubDate) === "Invalid publication date") return false;
     return true;
   }
 

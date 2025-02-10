@@ -8,10 +8,8 @@ export class BookDOMe<T extends IBook> {
   private booksPerPage: number = 5;
   private bookListDiv: HTMLElement | null;
   private bookCountDiv: HTMLElement | null;
-  private sortAscButton: HTMLElement | null =
-    document.getElementById("sortAsc");
-  private sortDescButton: HTMLElement | null =
-    document.getElementById("sortDesc");
+  private sortAscButton: HTMLElement | null = document.getElementById("sortAsc");
+  private sortDescButton: HTMLElement | null = document.getElementById("sortDesc");
   private categorizedBookListDiv!: HTMLElement | null; // assigned later in the handleCategorize method
 
   constructor(books: T[]) {
@@ -20,9 +18,7 @@ export class BookDOMe<T extends IBook> {
     this.bookListDiv = document.getElementById("bookList");
     this.bookCountDiv = document.getElementById("bookCount");
     this.sortAscButton?.addEventListener("click", () => this.sortBooks("asc"));
-    this.sortDescButton?.addEventListener("click", () =>
-      this.sortBooks("desc")
-    );
+    this.sortDescButton?.addEventListener("click", () => this.sortBooks("desc"));
     document.getElementById("formContainer")?.addEventListener("click", (e) => {
       if (e.target && (e.target as HTMLElement).id === "formContainer") {
         BookDOMe.closeForm();
@@ -30,10 +26,7 @@ export class BookDOMe<T extends IBook> {
     }); // Close the form container when the user clicks outside the form
   }
 
-  public updateBookDisplay(
-    books: T[] = this.books,
-    currentPage: number = 1
-  ): void {
+  public updateBookDisplay(books: T[] = this.books, currentPage: number = 1): void {
     const totalBooks = books.length;
     const startIndex = (currentPage - 1) * this.booksPerPage;
     const endIndex = Math.min(startIndex + this.booksPerPage, totalBooks);
@@ -49,8 +42,7 @@ export class BookDOMe<T extends IBook> {
         wrapper.className = "overflow-x-auto w-full";
 
         const table = document.createElement("table");
-        table.className =
-          "min-w-full table-auto bg-white shadow-lg rounded-lg text-sm sm:text-base";
+        table.className = "min-w-full table-auto bg-white shadow-lg rounded-lg text-sm sm:text-base";
         table.innerHTML = `
           <thead class="bg-gray-200 text-left">
             <tr class="bg-gray-300 text-xs sm:text-sm uppercase tracking-wide text-gray-700">
@@ -69,27 +61,15 @@ export class BookDOMe<T extends IBook> {
               .map(
                 (book) => `
               <tr class="border-t border-gray-200 hover:bg-gray-100 text-xs sm:text-sm">
-                <td class="px-1 py-1 sm:px-3 sm:py-2 font-medium text-gray-700">${
-                  book.title
-                }</td>
-                <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${
-                  book.author
-                }</td>
-                <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${
-                  book.isbn
-                }</td>
-                <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${
-                  book.pubDate
-                }</td>
-                <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${
-                  book.genre
-                }</td>
+                <td class="px-1 py-1 sm:px-3 sm:py-2 font-medium text-gray-700">${book.title}</td>
+                <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${book.author}</td>
+                <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${book.isbn}</td>
+                <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${book.pubDate}</td>
+                <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${book.genre}</td>
                 <td class="px-1 py-1 sm:px-3 sm:py-2 text-gray-600">${BookAgeCalculator.calculateAge(
                   book.pubDate
                 )}</td>
-                <td class="px-1 py-1 sm:px-3 sm:py-2 text-green-600 font-semibold">${
-                  book.price
-                }</td>
+                <td class="px-1 py-1 sm:px-3 sm:py-2 text-green-600 font-semibold">${book.price}</td>
               </tr>
             `
               )
@@ -101,10 +81,7 @@ export class BookDOMe<T extends IBook> {
         this.bookListDiv.appendChild(wrapper);
 
         if (totalBooks > this.booksPerPage) {
-          this.addPaginationButtons(
-            currentPage,
-            Math.ceil(totalBooks / this.booksPerPage)
-          );
+          this.addPaginationButtons(currentPage, Math.ceil(totalBooks / this.booksPerPage));
         }
       }
     }
@@ -120,23 +97,15 @@ export class BookDOMe<T extends IBook> {
       button.className =
         "px-8 py-1 sm:px-4 sm:py-2 bg-gray-200 hover:bg-gray-300 disabled:opacity-50 text-xs sm:text-sm";
       button.disabled = disabled;
-      button.addEventListener("click", () =>
-        this.updateBookDisplay(this.books, page)
-      );
+      button.addEventListener("click", () => this.updateBookDisplay(this.books, page));
       return button;
     };
 
-    paginationDiv.appendChild(
-      createButton("Previous", currentPage - 1, currentPage === 1)
-    );
-    paginationDiv.appendChild(
-      createButton("Next", currentPage + 1, currentPage === totalPages)
-    );
+    paginationDiv.appendChild(createButton("Previous", currentPage - 1, currentPage === 1));
+    paginationDiv.appendChild(createButton("Next", currentPage + 1, currentPage === totalPages));
 
     if (this.bookListDiv) {
-      const existingPagination = this.bookListDiv.querySelector(
-        ".flex.justify-center"
-      );
+      const existingPagination = this.bookListDiv.querySelector(".flex.justify-center");
       if (existingPagination) {
         existingPagination.remove();
       }
@@ -146,16 +115,12 @@ export class BookDOMe<T extends IBook> {
 
   public static closeForm(): void {
     document.getElementById("formContainer")?.classList.add("hidden"); // hide the Container
-    document
-      .querySelectorAll("#formContainer > div")
-      .forEach((div) => div.classList.add("hidden")); // hide all the forms within the container
+    document.querySelectorAll("#formContainer > div").forEach((div) => div.classList.add("hidden")); // hide all the forms within the container
   }
 
   private sortBooks(order: "asc" | "desc"): void {
     this.books.sort((a, b) =>
-      order === "asc"
-        ? a.title.localeCompare(b.title)
-        : b.title.localeCompare(a.title)
+      order === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
     );
     this.updateBookDisplay(this.books);
   }
@@ -190,11 +155,9 @@ export class BookDOMe<T extends IBook> {
                   <li>
                     <strong>${book.title}</strong> by <em>${book.author}</em>
                     <br />
-                    <span class="text-sm text-gray-600">ISBN: ${
-                      book.isbn
-                    }, Published: ${book.pubDate}, Price: ${(
-                  book.price ?? 0
-                ).toFixed(2)}</span>
+                    <span class="text-sm text-gray-600">ISBN: ${book.isbn}, Published: ${
+                  book.pubDate
+                }, Price: ${(book.price ?? 0).toFixed(2)}</span>
                   </li>
                 `
               )
@@ -202,9 +165,7 @@ export class BookDOMe<T extends IBook> {
           </ul>
           ${
             genres[genre].length > 5
-              ? `<p class="text-sm text-blue-600 italic mt-3">And ${
-                  genres[genre].length - 5
-                } more...</p>`
+              ? `<p class="text-sm text-blue-600 italic mt-3">And ${genres[genre].length - 5} more...</p>`
               : ""
           }
         </div>
@@ -227,9 +188,7 @@ export class BookDOMe<T extends IBook> {
   }
 
   // Remove categorized books
-  public removeCategorizedBooks(
-    categorizedBookListDiv: HTMLElement | null
-  ): void {
+  public removeCategorizedBooks(categorizedBookListDiv: HTMLElement | null): void {
     this.categorizedBookListDiv = categorizedBookListDiv;
 
     if (this.categorizedBookListDiv) {
@@ -252,23 +211,13 @@ export class BookDOMe<T extends IBook> {
   }
 
   public filterBooks(): void {
-    const searchTerm = (
-      document.getElementById("searchTerm") as HTMLInputElement
-    )?.value
+    const searchTerm = (document.getElementById("searchTerm") as HTMLInputElement)?.value
       .trim()
       .toLowerCase();
-    const filterGenre = (
-      document.getElementById("filterGenre") as HTMLInputElement
-    )?.value;
-    const filterYear = (
-      document.getElementById("filterYear") as HTMLInputElement
-    )?.value;
+    const filterGenre = (document.getElementById("filterGenre") as HTMLInputElement)?.value;
+    const filterYear = (document.getElementById("filterYear") as HTMLInputElement)?.value;
 
-    if (
-      BookUtilities.validateTitle(searchTerm) ===
-      "Special Characters not allowed"
-    )
-      return;
+    if (BookUtilities.validateTitle(searchTerm) === "Special Characters not allowed") return;
     if (filterYear) {
       const currentYear = new Date().getFullYear();
       if (parseInt(filterYear, 10) > currentYear) {
@@ -280,8 +229,7 @@ export class BookDOMe<T extends IBook> {
     this.books = [...this.originalBooks]; // Reset the books array to the original books fetched from the API
     this.books = this.books.filter((book) => {
       const matchesSearch = searchTerm
-        ? book.title.toLowerCase().includes(searchTerm) ||
-          book.author.toLowerCase().includes(searchTerm)
+        ? book.title.toLowerCase().includes(searchTerm) || book.author.toLowerCase().includes(searchTerm)
         : true;
       const matchesGenre = filterGenre ? book.genre === filterGenre : true;
       const matchesYear = filterYear
@@ -313,8 +261,8 @@ export class BookDOMe<T extends IBook> {
     }
     return false;
   }
-  
-  public static findBookByIsbn(books : IBook[], isbn: number): number {
+
+  public static findBookByIsbn(books: IBook[], isbn: number): number {
     const bookIndex = books.findIndex((book) => book.isbn == isbn);
     if (bookIndex === -1) {
       toastr.error("Book not found.");

@@ -33,8 +33,7 @@ export class BookDOMe {
                 const wrapper = document.createElement("div");
                 wrapper.className = "overflow-x-auto w-full";
                 const table = document.createElement("table");
-                table.className =
-                    "min-w-full table-auto bg-white shadow-lg rounded-lg text-sm sm:text-base";
+                table.className = "min-w-full table-auto bg-white shadow-lg rounded-lg text-sm sm:text-base";
                 table.innerHTML = `
           <thead class="bg-gray-200 text-left">
             <tr class="bg-gray-300 text-xs sm:text-sm uppercase tracking-wide text-gray-700">
@@ -97,14 +96,10 @@ export class BookDOMe {
     static closeForm() {
         var _a;
         (_a = document.getElementById("formContainer")) === null || _a === void 0 ? void 0 : _a.classList.add("hidden"); // hide the Container
-        document
-            .querySelectorAll("#formContainer > div")
-            .forEach((div) => div.classList.add("hidden")); // hide all the forms within the container
+        document.querySelectorAll("#formContainer > div").forEach((div) => div.classList.add("hidden")); // hide all the forms within the container
     }
     sortBooks(order) {
-        this.books.sort((a, b) => order === "asc"
-            ? a.title.localeCompare(b.title)
-            : b.title.localeCompare(a.title));
+        this.books.sort((a, b) => order === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
         this.updateBookDisplay(this.books);
     }
     handleCategorize(categorizedBookListDiv) {
@@ -185,8 +180,7 @@ export class BookDOMe {
         const searchTerm = (_a = document.getElementById("searchTerm")) === null || _a === void 0 ? void 0 : _a.value.trim().toLowerCase();
         const filterGenre = (_b = document.getElementById("filterGenre")) === null || _b === void 0 ? void 0 : _b.value;
         const filterYear = (_c = document.getElementById("filterYear")) === null || _c === void 0 ? void 0 : _c.value;
-        if (BookUtilities.validateTitle(searchTerm) ===
-            "Special Characters not allowed")
+        if (BookUtilities.validateTitle(searchTerm) === "Special Characters not allowed")
             return;
         if (filterYear) {
             const currentYear = new Date().getFullYear();
@@ -198,8 +192,7 @@ export class BookDOMe {
         this.books = [...this.originalBooks]; // Reset the books array to the original books fetched from the API
         this.books = this.books.filter((book) => {
             const matchesSearch = searchTerm
-                ? book.title.toLowerCase().includes(searchTerm) ||
-                    book.author.toLowerCase().includes(searchTerm)
+                ? book.title.toLowerCase().includes(searchTerm) || book.author.toLowerCase().includes(searchTerm)
                 : true;
             const matchesGenre = filterGenre ? book.genre === filterGenre : true;
             const matchesYear = filterYear
