@@ -5,7 +5,8 @@
     "isbn": "1234567890",
     "pubDate": "2000-07-11",
     "genre": "fiction",
-    "price": 24.99
+    "price": 24.99,
+    "bookType": "printed"
   },
   {
     "title": "1984",
@@ -13,7 +14,8 @@
     "isbn": "2345678901",
     "pubDate": "1949-06-08",
     "genre": "fiction",
-    "price": 19.49
+    "price": 19.49,
+    "bookType": "ebook"
   },
   {
     "title": "The Great Gatsby",
@@ -21,7 +23,8 @@
     "isbn": "3456789012",
     "pubDate": "1925-04-10",
     "genre": "fiction",
-    "price": 15.75
+    "price": 15.75,
+    "bookType": "printed"
   },
   {
     "title": "A Brief History of Humankind",
@@ -29,7 +32,8 @@
     "isbn": "4567890123",
     "pubDate": "2011-01-01",
     "genre": "non-fiction",
-    "price": 34.90
+    "price": 34.90,
+    "bookType": "ebook"
   },
   {
     "title": "The Hobbit",
@@ -37,7 +41,8 @@
     "isbn": "5678901234",
     "pubDate": "1937-09-21",
     "genre": "fantasy",
-    "price": 29.99
+    "price": 29.99,
+    "bookType": "printed"
   },
   {
     "title": "Pride and Prejudice",
@@ -45,7 +50,8 @@
     "isbn": "9780141439518",
     "pubDate": "1813-01-28",
     "genre": "fiction",
-    "price": 10.99
+    "price": 10.99,
+    "bookType": "ebook"
   },
   {
     "title": "The Lord of the Rings",
@@ -53,7 +59,8 @@
     "isbn": "9780618260262",
     "pubDate": "1954-07-29",
     "genre": "fantasy",
-    "price": 40.50
+    "price": 40.50,
+    "bookType": "printed"
   },
   {
     "title": "The Hitchhikers Guide to the Galaxy",
@@ -61,7 +68,8 @@
     "isbn": "9780345391803",
     "pubDate": "1979-10-12",
     "genre": "fiction",
-    "price": 17.80
+    "price": 17.80,
+    "bookType": "ebook"
   },
   {
     "title": "The Book Thief",
@@ -69,7 +77,8 @@
     "isbn": "9780375842207",
     "pubDate": "2005-03-14",
     "genre": "fiction",
-    "price": 12.95
+    "price": 12.95,
+    "bookType": "printed"
   },
   {
     "title": "The Catcher in the Rye",
@@ -77,7 +86,8 @@
     "isbn": "9780316769174",
     "pubDate": "1951-07-16",
     "genre": "fiction",
-    "price": 14.49
+    "price": 14.49,
+    "bookType": "ebook"
   },
   {
     "title": "The Da Vinci Code",
@@ -85,7 +95,8 @@
     "isbn": "9780307277671",
     "pubDate": "2003-03-18",
     "genre": "fiction",
-    "price": 25.00
+    "price": 25.00,
+    "bookType": "printed"
   },
   {
     "title": "Harry Potter and the Philosophers Stone",
@@ -93,7 +104,8 @@
     "isbn": "9780747532699",
     "pubDate": "1997-06-26",
     "genre": "fantasy",
-    "price": 35.95
+    "price": 35.95,
+    "bookType": "ebook"
   },
   {
     "title": "And Then There Were None",
@@ -101,7 +113,8 @@
     "isbn": "9780062073488",
     "pubDate": "1939-11-06",
     "genre": "mystery",
-    "price": 21.75
+    "price": 21.75,
+    "bookType": "printed"
   },
   {
     "title": "The Girl with the Dragon Tattoo",
@@ -109,7 +122,8 @@
     "isbn": "9780307277671",
     "pubDate": "2005-08-20",
     "genre": "fiction",
-    "price": 23.99
+    "price": 23.99,
+    "bookType": "ebook"
   },
   {
     "title": "The Hunger Games",
@@ -117,7 +131,8 @@
     "isbn": "9780439023481",
     "pubDate": "2008-09-14",
     "genre": "fiction",
-    "price": 20.49
+    "price": 20.49,
+    "bookType": "printed"
   },
   {
     "title": "The Lord of the Rings The Fellowship of the Ring",
@@ -125,7 +140,8 @@
     "isbn": "6789012345",
     "pubDate": "1954-07-29",
     "genre": "fantasy",
-    "price": 38.00
+    "price": 38.00,
+    "bookType": "ebook"
   },
   {
     "title": "Pride and Prejudice",
@@ -133,7 +149,8 @@
     "isbn": "7890123456",
     "pubDate": "1813-01-28",
     "genre": "Non-fantasy",
-    "price": 9.99
+    "price": 9.99,
+    "bookType": "printed"
   },
   {
     "title": "The Catcher in the Rye",
@@ -141,7 +158,8 @@
     "isbn": "8901234567",
     "pubDate": "1951-07-16",
     "genre": "fiction",
-    "price": 14.49
+    "price": 14.49,
+    "bookType": "ebook"
   },
   {
     "title": "The Alchemist",
@@ -149,7 +167,8 @@
     "isbn": "9012345678",
     "pubDate": "1988-05-01",
     "genre": "fiction",
-    "price": 16.75
+    "price": 16.75,
+    "bookType": "printed"
   },
   {
     "title": "The Hitchhikers Guide to the Galaxy",
@@ -157,7 +176,8 @@
     "isbn": "0123456789",
     "pubDate": "1979-10-12",
     "genre": "mystery",
-    "price": 17.80
+    "price": 17.80,
+    "bookType": "ebook"
   },
   {
     "title": "Harry Potter and the Philosopher Stone",
@@ -165,7 +185,8 @@
     "isbn": "1123456789",
     "pubDate": "1997-06-26",
     "genre": "Fantasy",
-    "price": 36.50
+    "price": 36.50,
+    "bookType": "printed"
   },
   {
     "title": "The Picture of Dorian Gray",
@@ -173,7 +194,8 @@
     "isbn": "2123456789",
     "pubDate": "1890-04-20",
     "genre": "biography",
-    "price": 18.20
+    "price": 18.20,
+    "bookType": "ebook"
   },
   {
     "title": "The Color Purple",
@@ -181,7 +203,8 @@
     "isbn": "3123456789",
     "pubDate": "1982-01-01",
     "genre": "fiction",
-    "price": 22.30
+    "price": 22.30,
+    "bookType": "printed"
   },
   {
     "title": "The Art of War",
@@ -189,7 +212,8 @@
     "isbn": "4123456789",
     "pubDate": "1500-12-21",
     "genre": "biography",
-    "price": 10.50
+    "price": 10.50,
+    "bookType": "ebook"
   },
   {
     "title": "Thinking Fast and Slow",
@@ -197,6 +221,7 @@
     "isbn": "5123456789",
     "pubDate": "2011-10-25",
     "genre": "biography",
-    "price": 29.95
+    "price": 29.95,
+    "bookType": "printed"
   }
 ]
