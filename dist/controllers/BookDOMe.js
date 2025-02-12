@@ -2,28 +2,25 @@ import { BookAgeCalculator } from "../BookAgeCalculator.js";
 import { BookUtilities } from "./BookUtilities.js";
 export class BookDOMe {
     constructor(books) {
-        var _a, _b, _c;
+        var _a;
         this.books = [];
         this.originalBooks = [];
         this.booksPerPage = 5;
-        this.sortAscButton = document.getElementById("sortAsc");
-        this.sortDescButton = document.getElementById("sortDesc");
         this.books = books;
         this.originalBooks = [...books];
         this.bookListDiv = document.getElementById("bookList");
         this.bookCountDiv = document.getElementById("bookCount");
-        (_a = this.sortAscButton) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => this.sortBooks("asc"));
-        (_b = this.sortDescButton) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => this.sortBooks("desc"));
-        (_c = document.getElementById("formContainer")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", (e) => {
+        (_a = document.getElementById("formContainer")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
             if (e.target && e.target.id === "formContainer") {
                 BookDOMe.closeForm();
             }
         }); // Close the form container when the user clicks outside the form
     }
-    updateBookDisplay(books = this.books, currentPage = 1) {
+    updateBookDisplay(books = this.books, currentPage = 1, Btype) {
         const totalBooks = books.length;
         const startIndex = (currentPage - 1) * this.booksPerPage;
         const endIndex = Math.min(startIndex + this.booksPerPage, totalBooks);
+        this.books = books;
         if (this.bookCountDiv) {
             this.bookCountDiv.textContent = `Number of books: ${totalBooks}`;
         }
@@ -32,6 +29,11 @@ export class BookDOMe {
             if (totalBooks > 0) {
                 const wrapper = document.createElement("div");
                 wrapper.className = "overflow-x-auto w-full";
+                wrapper.innerHTML = `
+          <div class="bg-blue-100 text-blue-800 text-lg font-semibold p-4 rounded-lg mb-4">
+              Books: ${Btype ? Btype : books[0].bookType}
+          </div>
+        `;
                 const table = document.createElement("table");
                 table.className = "min-w-full table-auto bg-white shadow-lg rounded-lg text-sm sm:text-base";
                 table.innerHTML = `
@@ -98,9 +100,10 @@ export class BookDOMe {
         (_a = document.getElementById("formContainer")) === null || _a === void 0 ? void 0 : _a.classList.add("hidden"); // hide the Container
         document.querySelectorAll("#formContainer > div").forEach((div) => div.classList.add("hidden")); // hide all the forms within the container
     }
-    sortBooks(order) {
-        this.books.sort((a, b) => order === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
-        this.updateBookDisplay(this.books);
+    sortBooks(books, order, BType) {
+        books.sort((a, b) => order === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
+        const instance = new BookDOMe(books);
+        instance.updateBookDisplay(books, 1, BType);
     }
     handleCategorize(categorizedBookListDiv) {
         this.categorizedBookListDiv = categorizedBookListDiv;
@@ -201,7 +204,7 @@ export class BookDOMe {
             return matchesSearch && matchesGenre && matchesYear;
         });
         toastr.success("Filter applied successfully");
-        this.updateBookDisplay(this.books);
+        this.updateBookDisplay(this.books, 1, "Filtered Books");
     }
     resetFilters() {
         // Clear the filter inputs
@@ -212,18 +215,7 @@ export class BookDOMe {
         this.updateBookDisplay(this.books);
         toastr.success("Filters reset successfully.");
     }
-    static isbnExists(books, isbn) {
-        if (books.some((book) => book.isbn === isbn)) {
-            toastr.error("ISBN already exists.");
-            return true;
-        }
-        return false;
-    }
-    static findBookByIsbn(books, isbn) {
-        const bookIndex = books.findIndex((book) => book.isbn == isbn);
-        if (bookIndex === -1) {
-            toastr.error("Book not found.");
-        }
-        return bookIndex;
+    getBooks() {
+        return this.books;
     }
 }

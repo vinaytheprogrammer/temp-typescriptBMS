@@ -25,3 +25,6 @@ Defining Book as an interface allows for the implementation of different functio
 and Implement genrics on BookManager Class so that this class operation can be utilised for  Printed Book, E-Book, Magazine and Research Paper Class Models 
 
 
+//------------------------------------------------
+
+creating a Book.html file where add, edit and delete book and other basic functionality and there is Main.ts in which i had created object of FetchBook.ts file where a class is exported and there is a BookManagerG.ts class which consist genrics functionality for add edit delete book which is a abstract class and 

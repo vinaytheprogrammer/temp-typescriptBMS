@@ -1,15 +1,13 @@
-import { IBook } from "../modals/IBook";
+import { IBook2 } from "../modals/IBook2.js";
 import { BookAgeCalculator } from "../BookAgeCalculator.js";
 import { BookUtilities } from "./BookUtilities.js";
 
-export class BookDOMe<T extends IBook> {
+export class BookDOMe<T extends IBook2> {
   private books: T[] = [];
   private originalBooks: T[] = [];
   private booksPerPage: number = 5;
   private bookListDiv: HTMLElement | null;
   private bookCountDiv: HTMLElement | null;
-  private sortAscButton: HTMLElement | null = document.getElementById("sortAsc");
-  private sortDescButton: HTMLElement | null = document.getElementById("sortDesc");
   private categorizedBookListDiv!: HTMLElement | null; // assigned later in the handleCategorize method
 
   constructor(books: T[]) {
@@ -17,8 +15,6 @@ export class BookDOMe<T extends IBook> {
     this.originalBooks = [...books];
     this.bookListDiv = document.getElementById("bookList");
     this.bookCountDiv = document.getElementById("bookCount");
-    this.sortAscButton?.addEventListener("click", () => this.sortBooks("asc"));
-    this.sortDescButton?.addEventListener("click", () => this.sortBooks("desc"));
     document.getElementById("formContainer")?.addEventListener("click", (e) => {
       if (e.target && (e.target as HTMLElement).id === "formContainer") {
         BookDOMe.closeForm();
@@ -26,11 +22,11 @@ export class BookDOMe<T extends IBook> {
     }); // Close the form container when the user clicks outside the form
   }
 
-  public updateBookDisplay(books: T[] = this.books, currentPage: number = 1): void {
+  public updateBookDisplay(books: T[] = this.books, currentPage: number = 1, Btype?: string): void {
     const totalBooks = books.length;
     const startIndex = (currentPage - 1) * this.booksPerPage;
     const endIndex = Math.min(startIndex + this.booksPerPage, totalBooks);
-
+this.books = books;
     if (this.bookCountDiv) {
       this.bookCountDiv.textContent = `Number of books: ${totalBooks}`;
     }
@@ -40,7 +36,11 @@ export class BookDOMe<T extends IBook> {
       if (totalBooks > 0) {
         const wrapper = document.createElement("div");
         wrapper.className = "overflow-x-auto w-full";
-
+        wrapper.innerHTML = `
+          <div class="bg-blue-100 text-blue-800 text-lg font-semibold p-4 rounded-lg mb-4">
+              Books: ${Btype ? Btype : books[0].bookType}
+          </div>
+        `;
         const table = document.createElement("table");
         table.className = "min-w-full table-auto bg-white shadow-lg rounded-lg text-sm sm:text-base";
         table.innerHTML = `
@@ -118,11 +118,12 @@ export class BookDOMe<T extends IBook> {
     document.querySelectorAll("#formContainer > div").forEach((div) => div.classList.add("hidden")); // hide all the forms within the container
   }
 
-  private sortBooks(order: "asc" | "desc"): void {
-    this.books.sort((a, b) =>
+  public sortBooks(books: IBook2[], order: "asc" | "desc", BType? : string): void {
+    books.sort((a, b) =>
       order === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
     );
-    this.updateBookDisplay(this.books);
+    const instance = new BookDOMe(books);
+    instance.updateBookDisplay(books, 1, BType);
   }
 
   public handleCategorize(categorizedBookListDiv: HTMLElement | null): void {
@@ -240,7 +241,7 @@ export class BookDOMe<T extends IBook> {
     });
 
     toastr.success("Filter applied successfully");
-    this.updateBookDisplay(this.books);
+    this.updateBookDisplay(this.books, 1, "Filtered Books");
   }
 
   public resetFilters(): void {
@@ -254,19 +255,7 @@ export class BookDOMe<T extends IBook> {
     toastr.success("Filters reset successfully.");
   }
 
-  public static isbnExists(books: IBook[], isbn: number): boolean {
-    if (books.some((book: IBook) => book.isbn === isbn)) {
-      toastr.error("ISBN already exists.");
-      return true;
-    }
-    return false;
-  }
-
-  public static findBookByIsbn(books: IBook[], isbn: number): number {
-    const bookIndex = books.findIndex((book) => book.isbn == isbn);
-    if (bookIndex === -1) {
-      toastr.error("Book not found.");
-    }
-    return bookIndex;
+  public getBooks(): IBook2[] {
+    return this.books;
   }
 }

@@ -1,3 +1,5 @@
+import { IBook2 } from "../modals/IBook2.js";
+
 export class BookUtilities {
   private static validStringPattern = /^[a-zA-Z0-9\s]+$/;
 
@@ -114,4 +116,22 @@ export class BookUtilities {
       }
     });
   }
+
+  
+    public static isbnExists(books: IBook2[], isbn: number): boolean {
+      if (books.some((book: IBook2) => book.isbn === isbn)) {
+        toastr.error("ISBN already exists.");
+        return true;
+      }
+      return false;
+    }
+  
+    public static findBookByIsbn(books: IBook2[], isbn: number): number {
+      const bookIndex = books.findIndex((book) => book.isbn == isbn);
+      if (bookIndex === -1) {
+        toastr.error("Book not found.");
+      }
+      return bookIndex;
+    }
+  
 }

@@ -91,5 +91,19 @@ export class BookUtilities {
             }
         });
     }
+    static isbnExists(books, isbn) {
+        if (books.some((book) => book.isbn === isbn)) {
+            toastr.error("ISBN already exists.");
+            return true;
+        }
+        return false;
+    }
+    static findBookByIsbn(books, isbn) {
+        const bookIndex = books.findIndex((book) => book.isbn == isbn);
+        if (bookIndex === -1) {
+            toastr.error("Book not found.");
+        }
+        return bookIndex;
+    }
 }
 BookUtilities.validStringPattern = /^[a-zA-Z0-9\s]+$/;
